@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueLChat - Nhắn tin bảo mật mạng LAN</title>
+    <!-- Thêm Font chữ hiện đại -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Thêm Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <style>
+        :root {
+            --primary: #8b5cf6;      /* Violet chính */
+            --secondary: #a78bfa;    /* Lavender phụ */
+            --accent: #c4b5fd;       /* Light purple nổi bật */
+            --bg-dark: #120b2a;      /* Nền tối tím hơn */
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(167, 139, 250, 0.2); /* Border tím nhạt */
+        }
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(167, 139, 250, 0.25) 0%, transparent 40%);
+            color: #f1f5f9;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+        }
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+        h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+        .tagline {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: #d8b4fe; /* Tím nhạt cho tagline */
+            max-width: 700px;
+            margin: 20px auto;
+        }
+        /* Features Section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .feature-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(167, 139, 250, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
+        }
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .feature-card p {
+            color: #d8b4fe;
+            font-size: 1rem;
+        }
+        /* Download Section */
+        .download-area {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, transparent, rgba(139, 92, 246, 0.1));
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 35px;
+            background: #fff;
+            color: #120b2a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .btn-android {
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--glass-border);
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.5);
+        }
+        .btn-android:hover {
+            border-color: var(--accent);
+            background: rgba(196, 181, 253, 0.2);
+        }
+        /* Footer */
+        footer {
+            padding: 50px 20px;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: #a78bfa;
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .btn { width: 100%; justify-content: center; }
+            h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero-content">
+            <h1>BlueLChat</h1>
+            <p class="tagline">Giao tiếp nội bộ đỉnh cao. Bảo mật tuyệt đối. Không cần Internet. Tốc độ ánh sáng trong mạng LAN của bạn.</p>
+            <div class="btn-group">
+                <a href="#download" class="btn">Bắt đầu ngay</a>
+                <a href="#features" class="btn btn-android">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </header>
+    <section class="container" id="features">
+        <h2 class="section-title">Tại sao chọn BlueLChat?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-users"></i></div>
+                <h3>Thân thiện</h3>
+                <p>Đơn giản, không cấu hình phức tạp.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-shield-halved"></i></div>
+                <h3>An toàn tuyệt đối</h3>
+                <p>Hoạt động Peer-to-Peer. Dữ liệu của bạn không bao giờ rời khỏi phòng làm việc.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-lock"></i></div>
+                <h3>Mã hóa AES-256</h3>
+                <p>Mọi tin nhắn và file gửi đi đều được mã hóa với tiêu chuẩn quân đội.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-file-export"></i></div>
+                <h3>Gửi File không giới hạn</h3>
+                <p>Chuyển tài liệu, video dung lượng lớn nhanh qua mạng LAN.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-users"></i></div>
+                <h3>Hợp tác nhóm</h3>
+                <p>Phòng chat chung, thảo luận nhóm nhanh chóng mà không cần cấu hình server.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-database"></i></div>
+                <h3>Lưu trữ cục bộ</h3>
+                <p>Tự quản lý lịch sử trò chuyện ngay trên máy tính cá nhân. Quyền riêng tư là của bạn.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-laptop-mobile"></i></div>
+                <h3>Đa nền tảng</h3>
+                <p>Hỗ trợ cả Windows và Android</p>
+            </div>
+        </div>
+    </section>
+    <section class="download-area" id="download">
+        <div class="container">
+            <h2 class="section-title">Sẵn sàng trải nghiệm?</h2>
+            <p style="color: #d8b4fe; margin-bottom: 40px;">Tải xuống phiên bản mới nhất cho thiết bị của bạn.</p>
+            <div class="download-buttons">
+                <div class="btn-group">
+                    <a href="https://github.com/Trqc-Nam/BlueLChat-download/releases/download/v1.0.0/setup-BlueLChat-1.0.0.exe" class="btn">
+                        <i class="fab fa-windows" style="font-size: 1.5rem;"></i>
+                        <span>Windows</span>
+                    </a>
+                    <a href="https://github.com/Trqc-Nam/BlueLChat-download/releases/download/v1.0.0/APK-BlueLChat-1.0.0.apk" class="btn btn-android">
+                        <i class="fab fa-android" style="font-size: 1.5rem;"></i>
+                        <span>Android APK</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2026 BlueLChat. Copyright (c) Truong Quoc Nam</p>
+        <div style="margin-top: 15px; font-size: 1.2rem;">
+            <i class="fab fa-github" style="margin: 0 10px; cursor: pointer;"></i>
+            <i class="fab fa-facebook" style="margin: 0 10px; cursor: pointer;"></i>
+            <i class="fas fa-envelope" style="margin: 0 10px; cursor: pointer;"></i>
+        </div>
+    </footer>
+</body>
+</html>
